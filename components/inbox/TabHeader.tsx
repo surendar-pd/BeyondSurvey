@@ -13,7 +13,7 @@ import { TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const TabHeader = () => {
 	return (
-		<TabsList className='w-full grid grid-cols-12 gap-2 p-2 h-fit'>
+		<TabsList className='w-full grid grid-cols-12 gap-2 p-2 h-fit bg-salte-50'>
 			<TabsTrigger value='inbox' className='col-span-2'>
 				Inbox (6)
 			</TabsTrigger>
