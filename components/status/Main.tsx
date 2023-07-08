@@ -323,7 +323,7 @@ const StatusMain = () => {
 	});
 
 	useEffect(() => {
-		table.setPageSize(7);
+		table.setPageSize(10);
 	}, [table]);
 
 	return (
@@ -342,7 +342,6 @@ const StatusMain = () => {
 						<SelectItem value='status'>Status</SelectItem>
 					</SelectContent>
 				</Select>
-
 				<Input
 					placeholder='Search...'
 					value={
