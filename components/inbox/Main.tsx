@@ -66,14 +66,14 @@ const InboxMain = () => {
 		<div className='col-span-8 w-full'>
 			<Tabs defaultValue='inbox' className='w-full mt-4'>
 				<TabHeader />
-				<TabsContent value='inbox' className='mt-8'>
-					<h3 className='font-medium text-lg'>Overdue</h3>
+				<TabsContent value='inbox' className=''>
+					<h3 className='font-medium text-lg mt-4'>Overdue</h3>
 					<ul className='flex flex-col gap-4 mt-4'>
 						{INBOX.filter((val) => val.status === 'overdue').map(
 							(item) => (
 								<li
 									key={item.title}
-									className='flex items-center w-full gap-4 rounded px-4 py-2 hover:bg-white transition-all duration-300 cursor-pointer'
+									className='flex items-center w-full gap-4 rounded px-4 py-2 hover:bg-slate-300/30 transition-all duration-300 cursor-pointer'
 								>
 									<LayoutList strokeWidth={1.5} />
 									<div className='mr-auto'>
@@ -101,7 +101,7 @@ const InboxMain = () => {
 							(item) => (
 								<li
 									key={item.title}
-									className='flex items-center w-full gap-4 rounded px-4 py-2 hover:bg-white transition-all duration-300 cursor-pointer'
+									className='flex items-center w-full gap-4 rounded px-4 py-2 hover:bg-slate-300/30 transition-all duration-300 cursor-pointer'
 								>
 									<LayoutList strokeWidth={1.5} />
 									<div className='mr-auto'>
