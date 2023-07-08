@@ -1,9 +1,20 @@
-import React from 'react'
+import React from 'react';
+import Head from 'next/Head';
+import StatusSidebar from '@/components/status/Sidebar';
+import StatusMain from '@/components/status/Main';
 
 const StatusPage = () => {
-  return (
-    <div>StatusPage</div>
-  )
-}
+	return (
+		<>
+			<Head>
+				<title>Easeforms | Live Status</title>
+			</Head>
+			<div className='w-full h-[calc(100vh-5rem)] grid grid-cols-12'>
+				<StatusSidebar />
+				<StatusMain />
+			</div>
+		</>
+	);
+};
 
-export default StatusPage
+export default StatusPage;
