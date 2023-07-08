@@ -1,4 +1,4 @@
-import Head from 'next/Head';
+import Head from 'next/head';
 import FormSidebar from '@/components/form/Sidebar';
 import FormMain from '@/components/form/Main';
 import FormFloater from '@/components/form/Floater';
