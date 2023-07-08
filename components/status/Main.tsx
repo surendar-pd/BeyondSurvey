@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useMemo, useEffect } from 'react';
 import {
 	ColumnDef,
 	flexRender,
 	getCoreRowModel,
 	useReactTable,
+	getPaginationRowModel,
+	SortingState,
+	getSortedRowModel,
+	ColumnFiltersState,
+	getFilteredRowModel,
 } from '@tanstack/react-table';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
-
+import { Badge } from '@/components/ui/badge';
+import { format } from 'date-fns';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select';
 import {
 	Table,
 	TableBody,
@@ -16,11 +31,7 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
-
-interface DataTableProps<TData, TValue> {
-	columns: ColumnDef<TData, TValue>[];
-	data: TData[];
-}
+import { Check, X, ArrowUpDown, MoreHorizontal } from 'lucide-react';
 
 interface Agency {
 	name: string;
@@ -28,7 +39,7 @@ interface Agency {
 	assignees: string[];
 	activity: string;
 	progress: number;
-	status: 'ontrack' | 'overdue' | 'nodue';
+	status: 'on track' | 'overdue' | 'no due';
 	due: Date;
 	overdueTasks: number;
 	q1: boolean;
@@ -81,119 +92,292 @@ const columns: ColumnDef<Agency>[] = [
 		accessorKey: 'progress',
 		header: () => <div className='w-32'>Progress</div>,
 		cell: ({ row }) => {
-			return <Progress value={row.getValue('progress')} />;
+			const value = row.getValue('progress') as number;
+			return (
+				<Progress
+					className='h-2'
+					indicatorClassName={`${
+						value < 40
+							? 'bg-red-500'
+							: value >= 40 && value < 60
+							? 'bg-yellow-500'
+							: 'bg-green-500'
+					}`}
+					value={row.getValue('progress')}
+				/>
+			);
 		},
 	},
 	{
 		accessorKey: 'status',
-		header: 'Status',
+		header: () => <div className='w-24'>Status</div>,
+		cell: ({ row }) => {
+			const value = row.getValue('status') as Agency['status'];
+			return (
+				<Badge
+					className={`${
+						value === 'on track'
+							? 'bg-cyan-400/50'
+							: value === 'overdue'
+							? 'bg-rose-400/50'
+							: 'bg-amber-400/50'
+					} capitalize font-normal`}
+					variant={'outline'}
+				>
+					{value}
+				</Badge>
+			);
+		},
 	},
 	{
-		accessorKey: 'date',
-		header: 'Due',
+		accessorKey: 'due',
+		header: () => <div className='w-24'>Due</div>,
+		cell: ({ row }) => {
+			const date = row.getValue('due') as Agency['due'];
+			return <div>{format(date, 'PPP')}</div>;
+		},
 	},
 	{
 		accessorKey: 'overdueTasks',
-		header: 'Overdue Tasks',
+		header: ({ column }) => {
+			return (
+				<Button
+					variant='ghost'
+					className='w-40'
+					onClick={() =>
+						column.toggleSorting(column.getIsSorted() === 'asc')
+					}
+				>
+					Overdue Tasks
+					<ArrowUpDown className='ml-2 h-4 w-4' />
+				</Button>
+			);
+		},
+		cell: ({ row }) => {
+			const value = row.getValue(
+				'overdueTasks'
+			) as Agency['overdueTasks'];
+			return (
+				<Button variant={'outline'} className='font-normal'>
+					{value} tasks
+				</Button>
+			);
+		},
 	},
 	{
 		accessorKey: 'q1',
-		header: 'Question 1',
+		header: () => <div className='w-24'>Question 1</div>,
+		cell: ({ row }) => {
+			const value = row.getValue('q1') as boolean;
+			return value ? (
+				<Check
+					size={16}
+					color='black'
+					strokeWidth={1.5}
+					className='mx-auto'
+				/>
+			) : (
+				<X
+					size={16}
+					color='black'
+					strokeWidth={1.5}
+					className='mx-auto'
+				/>
+			);
+		},
 	},
 	{
 		accessorKey: 'q2',
-		header: 'Question 2',
+		header: () => <div className='w-24'>Question 2</div>,
+		cell: ({ row }) => {
+			const value = row.getValue('q2') as boolean;
+			return value ? (
+				<Check
+					size={16}
+					color='black'
+					strokeWidth={1.5}
+					className='mx-auto'
+				/>
+			) : (
+				<X
+					size={16}
+					color='black'
+					strokeWidth={1.5}
+					className='mx-auto'
+				/>
+			);
+		},
 	},
 	{
 		accessorKey: 'q3',
-		header: 'Question 3',
+		header: () => <div className='w-24'>Question 3</div>,
+		cell: ({ row }) => {
+			const value = row.getValue('q3') as boolean;
+			return value ? (
+				<Check
+					size={16}
+					color='black'
+					strokeWidth={1.5}
+					className='mx-auto'
+				/>
+			) : (
+				<X
+					size={16}
+					color='black'
+					strokeWidth={1.5}
+					className='mx-auto'
+				/>
+			);
+		},
 	},
 	{
 		accessorKey: 'q4',
-		header: 'Question 4',
+		header: () => <div className='w-24'>Question 4</div>,
+		cell: ({ row }) => {
+			const value = row.getValue('q4') as boolean;
+			return value ? (
+				<Check
+					size={16}
+					color='black'
+					strokeWidth={1.5}
+					className='mx-auto'
+				/>
+			) : (
+				<X
+					size={16}
+					color='black'
+					strokeWidth={1.5}
+					className='mx-auto'
+				/>
+			);
+		},
 	},
 	{
 		accessorKey: 'q5',
-		header: 'Question 5',
-	},
-];
-
-const data: Agency[] = [
-	{
-		name: 'Agency 1',
-		location: 'Mumbai',
-		assignees: [
-			'https://github.com/shadcn.png',
-			'https://github.com/kunalkeshan.png',
-		],
-		activity: 'few seconds ago',
-		progress: 69,
-		status: 'ontrack',
-		due: new Date(),
-		overdueTasks: 5,
-		q1: true,
-		q2: false,
-		q3: false,
-		q4: true,
-		q5: false,
-	},
-	{
-		name: 'Agency 2',
-		location: 'Mumbai',
-		assignees: ['https://github.com/shadcn.png'],
-		activity: 'few seconds ago',
-		progress: 69,
-		status: 'ontrack',
-		due: new Date(),
-		overdueTasks: 5,
-		q1: true,
-		q2: false,
-		q3: false,
-		q4: true,
-		q5: false,
-	},
-	{
-		name: 'Agency 3',
-		location: 'Mumbai',
-		assignees: ['https://github.com/shadcn.png'],
-		activity: 'few seconds ago',
-		progress: 69,
-		status: 'ontrack',
-		due: new Date(),
-		overdueTasks: 5,
-		q1: true,
-		q2: false,
-		q3: false,
-		q4: true,
-		q5: false,
-	},
-	{
-		name: 'Agency 4',
-		location: 'Mumbai',
-		assignees: ['https://github.com/shadcn.png'],
-		activity: 'few seconds ago',
-		progress: 69,
-		status: 'ontrack',
-		due: new Date(),
-		overdueTasks: 5,
-		q1: true,
-		q2: false,
-		q3: false,
-		q4: true,
-		q5: false,
+		header: () => <div className='w-24'>Question 5</div>,
+		cell: ({ row }) => {
+			const value = row.getValue('q5') as boolean;
+			return value ? (
+				<Check
+					size={16}
+					color='black'
+					strokeWidth={1.5}
+					className='mx-auto'
+				/>
+			) : (
+				<X
+					size={16}
+					color='black'
+					strokeWidth={1.5}
+					className='mx-auto'
+				/>
+			);
+		},
 	},
 ];
 
 const StatusMain = () => {
+	const data = useMemo(() => {
+		const ans = [true, false, false, true, false];
+		const loc = ['Mumbai', 'Delhi', 'Chennai', 'Bangalore'];
+		const users = [
+			'https://github.com/shadcn.png',
+			'https://github.com/kunalkeshan.png',
+		];
+		const status = ['no due', 'overdue', 'on track'];
+		return new Array(100).fill(true).map((ele, index) => {
+			return {
+				name: `Agency ${index + 1}`,
+				location: loc[Math.floor(loc.length * Math.random())],
+				activity: '1 day ago',
+				assignees: users,
+				progress: Math.round(Math.random() * 100),
+				status: status[Math.floor(status.length * Math.random())],
+				due: new Date(),
+				overdueTasks: Math.round(Math.random() * 10),
+				q1: ans[Math.floor(ans.length * Math.random())],
+				q2: ans[Math.floor(ans.length * Math.random())],
+				q3: ans[Math.floor(ans.length * Math.random())],
+				q4: ans[Math.floor(ans.length * Math.random())],
+				q5: ans[Math.floor(ans.length * Math.random())],
+			};
+		});
+	}, []) as Agency[];
+	const [sorting, setSorting] = React.useState<SortingState>([]);
+	const [columnFilters, setColumnFilters] =
+		React.useState<ColumnFiltersState>([]);
+	const [filterValue, setFilterValue] = React.useState('name');
 	const table = useReactTable({
 		data,
 		columns,
 		getCoreRowModel: getCoreRowModel(),
+		getPaginationRowModel: getPaginationRowModel(),
+		onSortingChange: setSorting,
+		getSortedRowModel: getSortedRowModel(),
+		onColumnFiltersChange: setColumnFilters,
+		getFilteredRowModel: getFilteredRowModel(),
+		state: {
+			columnFilters,
+			sorting,
+		},
 	});
+
+	useEffect(() => {
+		table.setPageSize(7);
+	}, [table]);
+
 	return (
-		<section className='col-span-9'>
+		<section className='col-span-9 overflow-y-scroll'>
+			<div className='flex items-center py-4 px-4'>
+				<Select
+					onValueChange={(value) => setFilterValue(value)}
+					defaultValue='name'
+				>
+					<SelectTrigger className='w-[180px] mr-4'>
+						<SelectValue placeholder='Filter by' />
+					</SelectTrigger>
+					<SelectContent>
+						<SelectItem value='name'>Agency</SelectItem>
+						<SelectItem value='location'>Location</SelectItem>
+						<SelectItem value='status'>Status</SelectItem>
+					</SelectContent>
+				</Select>
+
+				<Input
+					placeholder='Search...'
+					value={
+						(table
+							.getColumn(filterValue)
+							?.getFilterValue() as string) ?? ''
+					}
+					onChange={(event) =>
+						table
+							.getColumn(filterValue)
+							?.setFilterValue(event.target.value)
+					}
+					className='max-w-sm'
+				/>
+				<div className='flex items-center justify-end space-x-2 ml-auto'>
+					<Button
+						variant='outline'
+						size='sm'
+						onClick={() => table.previousPage()}
+						disabled={!table.getCanPreviousPage()}
+					>
+						Previous
+					</Button>
+					<Button
+						variant='outline'
+						size='sm'
+						onClick={() => table.nextPage()}
+						disabled={!table.getCanNextPage()}
+					>
+						Next
+					</Button>
+				</div>
+			</div>
 			<Table>
-				<TableHeader>
+				<TableHeader className=''>
 					{table.getHeaderGroups().map((headerGroup) => (
 						<TableRow key={headerGroup.id}>
 							{headerGroup.headers.map((header) => {
@@ -225,7 +409,7 @@ const StatusMain = () => {
 								{row.getVisibleCells().map((cell) => (
 									<TableCell
 										key={cell.id}
-										className='text-xs'
+										className='text-xs text-center'
 									>
 										{flexRender(
 											cell.column.columnDef.cell,
