@@ -11,8 +11,10 @@ const poppins = Poppins({
 })
 
 export default function App({ Component, pageProps }: AppProps) {
-	return <main className={`${poppins.variable} min-w-[1200px] bg-slate-100 font-poppins min-h-screen`}>
+	return <main className={`${poppins.variable} min-w-[1200px] bg-slate-100 font-poppins`}>
 	<Header />
-	<Component {...pageProps} />
+	<div className='h-[calc(100vh-5rem)]'>
+		<Component {...pageProps} />
+	</div>
 	</main>
 }
