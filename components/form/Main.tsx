@@ -28,8 +28,8 @@ const FormMain = () => {
 	return (
 		<section className='col-span-7 bg-white overflow-y-scroll border-r border-l flex flex-col gap-12 g-red-200 px-16 py-4'>
 			<div>
-				<h1 className='font-medium text-lg mb-2'>Introduction</h1>
-				<div className='w-full bg-blue-100 rounded mb-4 flex justify-start items-center'>
+				<h1 className='font-medium text-lg text-[#00aeef] mb-2'>Introduction</h1>
+				<div className='w-full bg-[#ffcb05] rounded-lg mb-4 flex justify-start items-center'>
 					<div className='w-1/2 p-8'>
 						<Image
 							src='/assests/intro.svg'
@@ -39,8 +39,8 @@ const FormMain = () => {
 							className='w-80'
 						/>
 					</div>
-					<div className='text-center w-1/2'>
-						<h1 className='text-xl font-semibold'>
+					<div className='text-center w-1/2 p-4'>
+						<h1 className='text-3xl font-semibold text-[#00aeef]'>
 							Collection Agency Audit
 						</h1>
 					</div>
@@ -64,7 +64,7 @@ const FormMain = () => {
 				</div>
 			</div>
 			<div>
-				<h1 className='font-medium text-lg mb-2'>Audit Approach</h1>
+				<h1 className='font-medium text-lg text-[#00aeef] mb-2'>Audit Approach</h1>
 				<p className='mb-2'>
 					Our approach enforce meticulous planning and strategic
 					execution. Step wise details:
@@ -90,37 +90,37 @@ const FormMain = () => {
 				</div>
 			</div>
 			<div className='flex flex-col gap-4 w-full'>
-				<h1 className='font-medium text-lg mb-2'>
+				<h1 className='font-medium text-lg text-[#00aeef] mb-2'>
 					Record Client Information
 				</h1>
+				<Label className='leading-relaxed -mb-2' htmlFor='email'>
+					1. Whether the agency ensures that employees adhere to punctuality and maintain the designated office timings for calls and collections
+				</Label>
 				<div className='grid w-full max-w-md items-center gap-1.5'>
-					<Label className='' htmlFor='email'>
-						Question 1
-					</Label>
 					<Input type='text' id='email' placeholder='Answer' />
 				</div>
+				<Label className='leading-relaxed -mb-2' htmlFor='email'>
+					2. Whether proper authentication and verification processes for all high bucket cases in place
+				</Label>
 				<div className='grid w-full max-w-md items-center gap-1.5'>
-					<Label className='' htmlFor='email'>
-						Question 2
-					</Label>
 					<Input type='text' id='email' placeholder='Answer' />
 				</div>
+				<Label className='leading-relaxed -mb-2' htmlFor='email'>
+					3.  Whether the agency has a checklist for calling activity
+				</Label>
 				<div className='grid w-full max-w-md items-center gap-1.5'>
-					<Label className='' htmlFor='email'>
-						Question 3
-					</Label>
 					<Input type='text' id='email' placeholder='Answer' />
 				</div>
+				<Label className='leading-relaxed -mb-2' htmlFor='email'>
+					4. Are customer complaint handled appropriately by the Agency
+				</Label>
 				<div className='grid w-full max-w-md items-center gap-1.5'>
-					<Label className='' htmlFor='email'>
-						Question 4
-					</Label>
 					<Input type='text' id='email' placeholder='Answer' />
 				</div>
+				<Label className='leading-relaxed -mb-2' htmlFor='email'>
+					5. Whether the collection agency staff has appropriate qualifications and competence
+				</Label>
 				<div className='grid w-full max-w-md items-center gap-1.5'>
-					<Label className='' htmlFor='email'>
-						Question 5
-					</Label>
 					<Input type='text' id='email' placeholder='Answer' />
 				</div>
 			</div>
@@ -185,7 +185,7 @@ const FormMain = () => {
 				</div>
 			</div>
 			<div>
-				<h1 className='font-medium text-lg mb-2'>Category</h1>
+				<h1 className='font-medium text-lg text-[#00aeef] mb-2'>Category</h1>
 				<p className='mb-4 text-slate-500 text-sm'>
 					Now you have an option to categorise your agencies into
 					various buckets for a more customized questionnaire which is
@@ -212,7 +212,7 @@ const FormMain = () => {
 			<div className=''>
 				<iframe
 					className='w-full h-96'
-					src='https://docs.google.com/spreadsheets/d/1xmbC7xfrKvGsibUUxCwU2CE2WNt1KLeWMvX0ernKacQ/edit?usp=sharing'
+					src='https://docs.google.com/spreadsheets/d/e/2PACX-1vSI-L1KeIDC5xVj8lU2ZATbXd4r7vYp0hUO8EGdNcMhdmFQcNs_VE9MWNiNoXK2bAN2r_iZFW_mZcpf/pubhtml'
 				></iframe>
 				{/* <iframe className="w-full h-80" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSI5XOREN6W8FSElSPT7xv3en4mesDsifJmq56yx2y8GXzvUPuoZ1qGfJJ8ZntlujHqp68vxq4hWLEM/pubhtml?widget=true&amp;headers=false"></iframe> */}
 			</div>

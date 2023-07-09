@@ -13,6 +13,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import Image from 'next/image';
 
 const LINKS = [
 	{
@@ -66,10 +67,7 @@ const Header = () => {
 					</Button>
 					<DropdownMenu>
 						<DropdownMenuTrigger>
-							<Avatar className=''>
-								<AvatarImage src='https://github.com/shadcn.png' />
-								<AvatarFallback>CN</AvatarFallback>
-							</Avatar>
+								<Image src={"https://www.ltfs.com/images/default-source/logo/ltfs-spreed-logo-final.png?sfvrsn=e0b9fb92_3"} width={"20"} height={"10"} className='w-36' alt='lnt logo'/>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent className='mr-8'>
 							<DropdownMenuLabel>My Account</DropdownMenuLabel>
