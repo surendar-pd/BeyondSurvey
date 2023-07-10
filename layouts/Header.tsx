@@ -37,7 +37,7 @@ const Header = () => {
 		<nav className='w-full grid grid-cols-12 z-50  place-items-center border-b border-slate-300 h-[5rem] bg-slate-50'>
 			<div className='col-span-3 px-8 -violet-400 flex items-center'>
 				<Link className='text-2xl font-medium' href='/'>
-					Easeforms
+					<Image src="/assests/logo.png" alt="logo" width="200" height="0" className=''/>
 				</Link>
 			</div>
 			<div className='col-span-7 -red-400'>
